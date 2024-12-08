@@ -9,6 +9,7 @@
   "license": "ISC",
   "description": "My first ui5 app - product list",
   "devDependencies": {
-    "@ui5/cli": "^4.0.11"
+    "@ui5/cli": "^4.0.11",
+    "ui5-middleware-simpleproxy": "^3.3.1"
   }
 }

@@ -3,7 +3,7 @@
     "id": "sapui5-product-list",
     "type": "application",
     "title": "Product List App",
-    "dataSources": {}
+    
   },
   "sap.ui5": {
     "rootView": {
@@ -11,18 +11,20 @@
       "type": "XML",
       "id": "app"
     },
+
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
     "dependencies": {
       "minUI5Version": "1.130.0",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
         "themelib_sap_horizon": {}
-      }
-    },
-    "models": {
-      "products": {
-        "type": "sap.ui.model.json.JSONModel",
-        "uri": "./model/Products.json"
       }
     }
   }

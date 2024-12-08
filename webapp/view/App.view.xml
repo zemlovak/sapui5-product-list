@@ -5,9 +5,9 @@
     <Shell>
         <App>
             <pages>
-                <Page title="SAP ui5 Product list App" class="sapUiResponsiveMargin">
+                <Page title="SAP ui5 Product list App">
                     <content>
-                        <List headerText="Product list" class="sapUiResponsiveMargin" width="auto" items="{products>/Products}">
+                        <List headerText="Product list" class="sapUiResponsiveMargin" width="auto" items="{odataModel>/Products}">
                             <headerToolbar>
                                 <Toolbar>
                                     <Title text="Product List" />
@@ -16,9 +16,10 @@
                                 </Toolbar>
                             </headerToolbar>
                             <items>
-                                <ObjectListItem title="{products>Name}" number="{products>Price}" numberUnit="USD">
+                                <ObjectListItem title="{odataModel>Name}" number="{odataModel>Price}" numberUnit="USD">
                                     <attributes>
-                                        <ObjectAttribute text="Rating: {products>Rating}" />
+                                        <ObjectAttribute text="Rating: {odataModel>Rating}" />
+                                        <ObjectAttribute text="Description: {odataModel>Description}" />
                                     </attributes>
                                 </ObjectListItem>
 
