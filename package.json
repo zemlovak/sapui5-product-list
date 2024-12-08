@@ -1,0 +1,14 @@
+{
+  "name": "sapui5-product-list",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "ui5 serve -o index.html"
+  },
+  "author": "KrZem",
+  "license": "ISC",
+  "description": "My first ui5 app - product list",
+  "devDependencies": {
+    "@ui5/cli": "^4.0.11"
+  }
+}

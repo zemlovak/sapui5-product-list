@@ -1,0 +1,32 @@
+<mvc:View controllerName="sapui5-product-list.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+
+    <Shell>
+        <App>
+            <pages>
+                <Page title="SAP ui5 Product list App" class="sapUiResponsiveMargin">
+                    <content>
+                        <List headerText="Product list" class="sapUiResponsiveMargin" width="auto" items="{products>/Products}">
+                            <headerToolbar>
+                                <Toolbar>
+                                    <Title text="Product List" />
+                                    <ToolbarSpacer />
+                                    <Button text="Add Product" press=".onOpenAddDialog" />
+                                </Toolbar>
+                            </headerToolbar>
+                            <items>
+                                <ObjectListItem title="{products>Name}" number="{products>Price}" numberUnit="USD">
+                                    <attributes>
+                                        <ObjectAttribute text="Rating: {products>Rating}" />
+                                    </attributes>
+                                </ObjectListItem>
+
+                            </items>
+                        </List>
+                    </content>
+                </Page>
+            </pages>
+        </App>
+    </Shell>
+</mvc:View>

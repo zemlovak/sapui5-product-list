@@ -1,0 +1,18 @@
+<Dialog
+    xmlns="sap.m"
+    title="Add Product">
+    <content>
+        <VBox>
+            <Label text="Name" />
+            <Input id="nameInput" />
+            <Label text="Price" />
+            <Input id="priceInput" />
+            <Label text="Rating" />
+            <Input id="ratingInput" />
+        </VBox>
+    </content>
+    <buttons>
+        <Button text="Add" press="onSaveProduct" />
+        <Button text="Cancel" press="onCancelDialog" />
+    </buttons>
+</Dialog>

@@ -1,0 +1,14 @@
+{
+    "Products": [
+        {
+            "Name": "Laptop",
+            "Price": "$1000",
+            "Rating": "4.5"
+        },
+        {
+            "Name": "Phone",
+            "Price": "$800",
+            "Rating": "4.8"
+        }
+    ]
+}
