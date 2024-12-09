@@ -12,7 +12,7 @@
         </VBox>
     </content>
     <buttons>
-        <Button text="Add" press="onSaveProduct" />
-        <Button text="Cancel" press="onCancelDialog" />
+        <Button text="Save" press=".onSaveProduct" />
+        <Button text="Cancel" press=".onCancelDialog" />
     </buttons>
 </Dialog>

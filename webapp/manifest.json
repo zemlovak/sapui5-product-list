@@ -2,7 +2,7 @@
   "sap.app": {
     "id": "sapui5-product-list",
     "type": "application",
-    "title": "Product List App",
+    "title": "Product List App"
     
   },
   "sap.ui5": {

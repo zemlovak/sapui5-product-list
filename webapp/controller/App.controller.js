@@ -1,71 +1,76 @@
-sap.ui.define(
-  [
-    "sap/ui/core/mvc/Controller",
-    "sap/ui/model/odata/v2/ODataModel",
-    "sap/m/Dialog",
-    "sap/m/Button",
-    "sap/m/Input",
-    "sap/m/Label",
-  ],
-  function (Controller, ODataModel, Dialog, Button, Input, Label) {
-    "use strict";
+sap.ui.define([
+  "sap/ui/core/mvc/Controller",
+  "sap/ui/model/odata/v2/ODataModel",
+  "sap/m/MessageToast",
+  "sap/ui/core/Fragment"
+], function (Controller, ODataModel, MessageToast, Fragment) {
+  "use strict";
 
-    return Controller.extend("sapui5-product-list.controller.App", {
+  return Controller.extend("sapui5-product-list.controller.App", {
       onInit: function () {
-        // Initialize ODataModel with the service root URL
-        var oModel = new ODataModel("/odata/");
-        this.getView().setModel(oModel, "odataModel");
-        if (oModel) {
-          // Attach metadata events
-          oModel.attachMetadataLoaded(function () {
-            console.log("OData metadata loaded successfully.");
-          });
-
-          oModel.attachMetadataFailed(function (oEvent) {
-            console.error(
-              "Failed to load OData metadata:",
-              oEvent.getParameters()
-            );
-          });
-        } else {
-          console.error("OData model 'odataModel' is not available.");
-        }
+          // Initialize ODataModel
+          var oModel = new ODataModel("/odata/", {useBatch: false});
+          this.getView().setModel(oModel, "odataModel");
       },
 
+      // Add product btn callback
       onOpenAddDialog: function () {
-        if (!this.oDialog) {
-          this.oDialog = new Dialog({
-            title: "Add Product",
-            content: [
-              new Label({ text: "Name" }),
-              new Input({ value: "" }),
-              new Label({ text: "Price" }),
-              new Input({ value: "" }),
-              new Label({ text: "Rating" }),
-              new Input({ value: "" }),
-            ],
-            buttons: [
-              new Button({
-                text: "Add",
-                press: this.onAddProduct.bind(this),
-              }),
-              new Button({
-                text: "Cancel",
-                press: function () {
-                  this.oDialog.close();
-                }.bind(this),
-              }),
-            ],
-          });
-          this.getView().addDependent(this.oDialog);
-        }
-        this.oDialog.open();
+          if (!this._oDialog) {
+              // Load the Dialog fragment
+              Fragment.load({
+                  name: "sapui5-product-list.view.addproduct",
+                  controller: this
+              }).then(function (oDialog) {
+                  this._oDialog = oDialog;
+                  this.getView().addDependent(this._oDialog);
+                  this._oDialog.open();
+              }.bind(this));
+          } else {
+              this._oDialog.open();
+          }
       },
 
-      onAddProduct: function () {
-        sap.m.MessageToast.show("Product added to the list.");
-        this.oDialog.close();
+      // Save btn callback
+      onSaveProduct: function () {
+          var oModel = this.getView().getModel("odataModel");
+
+          // Get input values
+          var sName = sap.ui.getCore().byId("nameInput").getValue();
+          var sPrice = parseFloat(sap.ui.getCore().byId("priceInput").getValue());
+          var iRating = parseInt(sap.ui.getCore().byId("ratingInput").getValue(), 10);
+
+          if (!sName || isNaN(sPrice) || isNaN(iRating)) {
+              MessageToast.show("Please fill in all fields with valid values.");
+              return;
+          }
+
+          // Create the product payload
+          var oNewProduct = {
+            ID: Math.floor(Math.random() * 100000), 
+            Name: sName,
+            Price: parseFloat(sPrice).toFixed(2),
+            Rating: iRating
+        };
+
+          // UX validation
+          oModel.create("/Products", oNewProduct, {
+              success: function () {
+                  MessageToast.show("Product added successfully!");
+              },
+              error: function (oError) {
+                  MessageToast.show("Failed to add product.");
+                  console.error("Error:", oError);
+              }
+          });
+
+          this._oDialog.close();
       },
-    });
-  }
-);
+
+      // Cancel btn callback
+      onCancelDialog: function () {
+          if (this._oDialog) {
+              this._oDialog.close();
+          }
+      }
+  });
+});
